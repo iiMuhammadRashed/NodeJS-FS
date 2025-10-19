@@ -1,6 +1,6 @@
 {
   "name": "nodejs-fs",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "CLI tool to scaffold production-ready Express + Mongoose backend with security best practices",
   "type": "module",
   "bin": {
