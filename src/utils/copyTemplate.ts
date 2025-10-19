@@ -1,10 +1,3 @@
-/**
- * Template Copy Utility
- *
- * Recursively copies template files and directories from the CLI package
- * to the target project directory, with optional placeholder replacement.
- */
-
 import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -20,14 +13,6 @@ import type {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-/**
- * Copy template directory to target location
- *
- * @param templateName - Name of the template (e.g., 'base-backend')
- * @param targetPath - Destination path
- * @param options - Copy options including verbose flag
- * @returns Promise that resolves when copy is complete
- */
 export const copyTemplate = async (
   templateName: TemplateName,
   targetPath: string,
@@ -35,10 +20,8 @@ export const copyTemplate = async (
 ): Promise<void> => {
   const { verbose = false } = options;
 
-  // Resolve template source path
   const templatePath = path.join(__dirname, '..', '..', 'lib', 'templates', templateName);
 
-  // Check if template exists
   if (!(await fs.pathExists(templatePath))) {
     throw new Error(`Template "${templateName}" not found at ${templatePath}`);
   }
@@ -47,12 +30,10 @@ export const copyTemplate = async (
   logger.debug(`Copying to: ${targetPath}`, verbose);
 
   try {
-    // Copy all files from template to target
     await fs.copy(templatePath, targetPath, {
       overwrite: false,
       errorOnExist: false,
       filter: (src: string): boolean => {
-        // Skip node_modules, logs, and other build artifacts
         const relativePath = path.relative(templatePath, src);
         const shouldSkip =
           relativePath.includes('node_modules') ||
@@ -77,13 +58,6 @@ export const copyTemplate = async (
   }
 };
 
-/**
- * Replace placeholders in a file
- *
- * @param filePath - Path to file
- * @param replacements - Key-value pairs for replacement
- * @returns Promise that resolves when replacements are complete
- */
 export const replacePlaceholders = async (
   filePath: string,
   replacements: Replacements
@@ -91,7 +65,6 @@ export const replacePlaceholders = async (
   try {
     let content = await fs.readFile(filePath, 'utf-8');
 
-    // Replace each placeholder
     for (const [key, value] of Object.entries(replacements)) {
       const regex = new RegExp(`{{${key}}}`, 'g');
       content = content.replace(regex, value);
@@ -104,13 +77,6 @@ export const replacePlaceholders = async (
   }
 };
 
-/**
- * Update package.json with project-specific details
- *
- * @param packageJsonPath - Path to package.json
- * @param updates - Updates to apply
- * @returns Promise that resolves when update is complete
- */
 export const updatePackageJson = async (
   packageJsonPath: string,
   updates: Partial<PackageJson>
@@ -118,7 +84,6 @@ export const updatePackageJson = async (
   try {
     const packageJson = await fs.readJson(packageJsonPath);
 
-    // Merge updates
     const updatedPackageJson: PackageJson = {
       ...packageJson,
       ...updates,
@@ -131,13 +96,6 @@ export const updatePackageJson = async (
   }
 };
 
-/**
- * Create a file with content
- *
- * @param filePath - Path to file
- * @param content - File content
- * @returns Promise that resolves when file is created
- */
 export const createFile = async (filePath: string, content: string): Promise<void> => {
   try {
     await fs.ensureFile(filePath);
@@ -148,12 +106,6 @@ export const createFile = async (filePath: string, content: string): Promise<voi
   }
 };
 
-/**
- * Ensure directory exists
- *
- * @param dirPath - Directory path
- * @returns Promise that resolves when directory is created
- */
 export const ensureDir = async (dirPath: string): Promise<void> => {
   try {
     await fs.ensureDir(dirPath);

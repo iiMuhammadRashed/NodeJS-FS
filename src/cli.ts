@@ -1,15 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * nodejs-fs CLI Entry Point
- *
- * This is the main CLI entry point that handles command-line arguments
- * and initiates project scaffolding.
- *
- * Usage:
- *   npx nodejs-fs <project-name> [options]
- */
-
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { fileURLToPath } from 'url';
@@ -18,17 +8,14 @@ import { readFileSync } from 'fs';
 import createProject from './createProject.js';
 import type { CliOptions } from './types/index.js';
 
-// Get current file directory (ES module equivalent of __dirname)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Read package.json for version info
 const packageJson = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8')) as {
   version: string;
   name: string;
 };
 
-// Initialize CLI program
 const program = new Command();
 
 program
@@ -43,7 +30,6 @@ program
   .option('--typescript', '[TODO] Use TypeScript (not implemented yet)')
   .action(async (projectName: string, options: CliOptions) => {
     try {
-      // Display banner
       console.log();
       console.log(chalk.cyan.bold('╔═══════════════════════════════════════════╗'));
       console.log(chalk.cyan.bold('║                                           ║'));
@@ -52,16 +38,13 @@ program
       console.log(chalk.cyan.bold('╚═══════════════════════════════════════════╝'));
       console.log();
 
-      // Check for TypeScript option (placeholder)
       if (options.typescript) {
         console.log(chalk.yellow('⚠️  TypeScript support is coming soon!'));
         console.log(chalk.yellow('    Generating JavaScript project for now...\n'));
       }
 
-      // Create the project
       await createProject(projectName, options);
 
-      // Success message
       console.log();
       console.log(chalk.green.bold('✨ ════════════════════════════════════════ ✨'));
       console.log(chalk.green.bold('   🎉 PROJECT CREATED SUCCESSFULLY! 🎉'));
@@ -101,10 +84,8 @@ program
     }
   });
 
-// Parse command line arguments
 program.parse(process.argv);
 
-// Show help if no arguments
 if (!process.argv.slice(2).length) {
   program.outputHelp();
 }
