@@ -1,13 +1,71 @@
 {
-  "name": "",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "nodejs-fs",
+  "version": "2.0.2",
+  "description": "CLI tool to scaffold production-ready Express + Mongoose backend with security best practices",
   "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bin": {
+    "create-nodejs-fs": "./dist/cli.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "main": "./dist/createProject.js",
+  "types": "./dist/createProject.d.ts",
+  "files": [
+    "dist/",
+    "lib/templates/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "test": "echo \"No tests yet\" && exit 0",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write \"src/**/*.{ts,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,json,md}\"",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run lint && npm run build"
+  },
+  "keywords": [
+    "express",
+    "mongoose",
+    "cli",
+    "scaffolding",
+    "generator",
+    "rest-api",
+    "jwt",
+    "backend",
+    "mern",
+    "nodejs"
+  ],
+  "author": "MERN Stack Hero",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.1",
+    "fs-extra": "^11.3.2",
+    "ora": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^24.8.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
+    "eslint": "^9.38.0",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iiMuhammadRashed/nodejs-fs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iiMuhammadRashed/nodejs-fs/issues"
+  },
+  "homepage": "https://github.com/iiMuhammadRashed/nodejs-fs#readme"
 }

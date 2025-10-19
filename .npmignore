@@ -1,0 +1,49 @@
+# Source files
+src/
+tsconfig.json
+
+# Development files
+.prettierrc.json
+.prettierignore
+eslint.config.js
+
+# Git
+.git/
+.gitignore
+
+# Node
+node_modules/
+package-lock.json
+
+# Build artifacts
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Tests
+test/
+tests/
+*.test.*
+*.spec.*
+
+# CI
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Documentation (keep only README and LICENSE)
+CONTRIBUTING.md
+CHANGELOG.md
